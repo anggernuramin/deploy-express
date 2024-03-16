@@ -1,6 +1,9 @@
 import express from "express";
 const app = express();
 const port = 3000;
+
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
   res.send({
     data: [{ name: "angger", nim: 21201087, prodi: "Teknik Informatika" }],
@@ -51,7 +54,9 @@ app.get("/contact", (req, res) => {
     },
   ];
 
-  res.send(defaultContacts);
+  res.render("contacts", {
+    title: "Angger Nur Amin",
+  });
 });
 
 app.listen(port, () =>
