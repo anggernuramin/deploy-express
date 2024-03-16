@@ -2,7 +2,11 @@ import express from "express";
 const app = express();
 const port = 3000;
 
+import { connectDB } from "./utils/db.js";
+import Person from "./model/contacts.js";
+
 app.set("view engine", "ejs");
+connectDB(); // Jalankan konek ke db
 
 app.get("/", (req, res) => {
   res.send({
@@ -10,7 +14,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/contact", (req, res) => {
+app.get("/contact", async (req, res) => {
   const defaultContacts = [
     {
       name: "Angger Nur Amin",
@@ -53,10 +57,10 @@ app.get("/contact", (req, res) => {
       nohp: "08827389279832",
     },
   ];
-
-  res.render("contacts", {
-    title: "Angger Nur Amin",
-  });
+  const person = await Person.find();
+  //   cek mengambil isi data dari collection person
+  console.log("🚀 ~ app.get ~ person:", person);
+  res.send(person);
 });
 
 app.listen(port, () =>
