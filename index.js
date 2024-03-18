@@ -5,7 +5,6 @@ const port = 3000;
 import { connectDB } from "./utils/db.js";
 import Person from "./model/contacts.js";
 
-app.set("view engine", "ejs");
 connectDB(); // Jalankan konek ke db
 
 app.get("/", (req, res) => {
